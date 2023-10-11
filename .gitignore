@@ -1,0 +1,6 @@
+*.sqlite3
+.idea
+#media
+.env
+*.log
+__pycache__
