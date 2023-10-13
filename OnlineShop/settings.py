@@ -122,3 +122,7 @@ MEDIA_ROOT = BASE_DIR / "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CART_SESSION_ID = 'cart'
+
+CELERY_BROKER_URL = 'amqp://admin:123123@localhost:5673//'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
