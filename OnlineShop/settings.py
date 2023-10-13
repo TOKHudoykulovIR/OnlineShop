@@ -123,6 +123,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CART_SESSION_ID = 'cart'
 
-CELERY_BROKER_URL = 'amqp://admin:123123@localhost:5673//'
+CELERY_BROKER_URL = f'amqp://admin:123123@localhost:{os.environ.get("RABBITMQ_POST")}//'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
