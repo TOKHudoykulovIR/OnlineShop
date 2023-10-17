@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from shop.models import Product
 from .forms import CartAddProductForm
 from .cart import Cart
+from coupons.forms import CouponApplyForm
 
 
 @require_POST
@@ -38,4 +39,5 @@ def cart_detail(request):
                 'override': True
             }
         )
-    return render(request, 'cart/detail.html', {'cart': cart})
+    coupon_apply_form = CouponApplyForm()
+    return render(request, 'cart/detail.html', {'cart': cart, 'coupon_apply_form': coupon_apply_form})
