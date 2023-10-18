@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 import os
+from django.utils.translation import gettext_lazy as _
 
 load_dotenv(find_dotenv())
 
@@ -32,11 +33,14 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
     'coupons.apps.CouponsConfig',
+    'rosetta',
+    'parler',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'django.middleware.locale.LocaleMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -102,6 +106,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
+LANGUAGES = [
+    ('en', _('English')),
+    ('ru', _('Russian')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
 TIME_ZONE = "UTC"
 
 USE_I18N = True
@@ -128,3 +141,20 @@ CART_SESSION_ID = 'cart'
 CELERY_BROKER_URL = f'amqp://admin:123123@localhost:{os.environ.get("RABBITMQ_POST")}//'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Redis settings
+REDIS_HOST = 'localhost'  # docker run -it --rm --name redis -p 6379:6379 redis
+REDIS_PORT = 6379
+REDIS_DB = 1
+
+# django-parler settings
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'ru'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
